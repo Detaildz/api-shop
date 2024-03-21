@@ -1,23 +1,18 @@
-const mongoose = require('mongoose');
+const Product = require('../models/productModel');
+const {
+  createProductValidation,
+} = require('../validation/createProductValidation');
 
-const productSchema = new mongoose.Schema({
-  image: String,
-  title: { type: String, required: true },
-  start_production: { type: Number, required: true },
-  class: String,
-});
-
-const Product = mongoose.model('Product', productSchema);
-
+// POST /product
 async function createProduct(props) {
-  console.log(props);
+  try {
+    createProductValidation(props);
 
-  const response = await Product.create({
-    title: 'test',
-    start_production: 2024,
-  });
-
-  return response;
+    const response = await Product.create(props);
+    return response;
+  } catch (error) {
+    console.log('Error creating product', error.message);
+  }
 }
 
 module.exports = createProduct;

@@ -3,20 +3,27 @@ const { createProduct, updateProduct } = require('../controllers');
 
 const router = Router();
 
+// POST /product
 router.post('/', async (req, res) => {
   try {
     const data = await createProduct(req.body);
-    res.json(data);
+    res.status(201).json(data);
     return 'Created';
-  } catch (err) {
-    console.log('Error:', err.message);
-    res.status(400).json({ err: err.message });
+  } catch (error) {
+    console.log('Error:', error.message);
+    res.status(400).json({ error: error.message });
   }
 });
 
-router.patch('/:id', (req, res) => {
-  const data = updateProduct();
-  res.json(data);
+// PATCH /products/:id
+router.patch('/:id', async (req, res) => {
+  try {
+    const data = updateProduct(req.params.id, req.body);
+    res.json(data);
+  } catch (error) {
+    console.log('Error:', error.message);
+    res.status(400).json({ error: error.message });
+  }
 });
 
 module.exports = router;

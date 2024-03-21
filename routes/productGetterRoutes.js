@@ -3,10 +3,15 @@ const { getAllProducts, getProductById } = require('../controllers');
 
 const router = Router();
 
-// get products
-router.get('/', (req, res) => {
-  const data = getAllProducts();
-  res.json(data);
+// GET products
+router.get('/', async (req, res) => {
+  try {
+    const data = await getAllProducts();
+    res.json(data);
+  } catch (error) {
+    console.log('Error:', error.message);
+    res.status(400).json({ error: error.message });
+  }
 });
 
 //GET /products/:id
