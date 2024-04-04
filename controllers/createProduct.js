@@ -5,14 +5,9 @@ const {
 
 // POST /product
 async function createProduct(props) {
-  try {
-    createProductValidation(props);
-
-    const response = await Product.create(props);
-    return response;
-  } catch (error) {
-    console.log('Error creating product', error.message);
-  }
+  createProductValidation(props);
+  const response = await Product.create(props);
+  return response;
 }
 
 module.exports = createProduct;

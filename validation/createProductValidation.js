@@ -9,7 +9,7 @@ function createProductValidation(props) {
 
   // year validation
   if (typeof props?.start_production !== 'number') {
-    throw new Error('Incorrect production year');
+    throw new Error('NaN is provided');
   }
   if (props?.start_production < 1886 || props?.start_production > year) {
     throw new Error('Incorrect production year');

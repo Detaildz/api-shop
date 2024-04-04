@@ -1,10 +1,11 @@
 const { Router } = require('express');
 const { createProduct, updateProduct } = require('../controllers');
+const verifyJWT = require('../middlewares/verifyJWT');
 
 const router = Router();
 
 // POST /product
-router.post('/', async (req, res) => {
+router.post('/', verifyJWT, async (req, res) => {
   try {
     const data = await createProduct(req.body);
     res.status(201).json(data);
